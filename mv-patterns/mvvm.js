@@ -37,7 +37,7 @@ const newModel = new model();
 
 class view {
     requestUpdate(billAmt, serviceQual, numOfPeople) {
-        p.requestUpdate(billAmt, serviceQual, numOfPeople);
+        vm.requestUpdate(billAmt, serviceQual, numOfPeople);
     }
 
     showView(result){
@@ -48,26 +48,26 @@ class view {
 }
 const v = new view();
 
-class presenter {
+class viewmodel {
     constructor(){
         this.view = null;
     }
 
-    changeView(view){
-        this.view = view;
+    changeView(v){
+        this.view = v;
     }
 
     requestUpdate(billAmt, serviceQual, numOfPeople){
         newModel.update(billAmt, serviceQual, numOfPeople);
         newModel.validate();
         var tip = newModel.tipCalculator();
-        v.showView(tip);
+        this.view.showView(tip);
     }
 }
-const p = new presenter();
+const vm = new viewmodel();
 
 //TO CHANGE THE VIEW AS MVVM HAS MANY TO ONE MAPPING BETWEEN VIEWS AND VIEWMODEL
-p.changeView(view);
+vm.changeView(v);
 
 //Hide the tip amount on load
 document.getElementById("totalTip").style.display = 'none';
